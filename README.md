@@ -1,66 +1,64 @@
 # Datetime API
 
-A minimal Flask-based API that returns the current date and time in UTC. Provides two simple endpoints useful for tooling or other APIs that expect either an ISO 8601 datetime or a YYYY-MM-DD date string.
+Small FastAPI service that returns the current date and time in UTC.
 
-## Features
+This repo exposes two simple endpoints and serves an OpenAPI spec and an AI plugin manifest from `public/` so it can be used as a tool server.
 
-- GET /datetime/current — returns current UTC date and time in ISO 8601 (see [`app.get_current_datetime`](app.py))
-- GET /date/current — returns current UTC date in YYYY-MM-DD format (see [`app.get_current_date`](app.py))
-- Serves OpenAPI spec and AI plugin manifest from the `public/` directory
+Features
 
-## Quickstart
+- GET /datetime/current — returns current UTC date and time in ISO 8601 (e.g. 2023-10-27T10:00:00.123456+00:00)
+- GET /date/current — returns current UTC date in YYYY-MM-DD format (e.g. 2023-10-27)
+- GET /openapi.yaml — serves the OpenAPI YAML from `public/openapi.yaml`
+- GET /openapi.json — returns the OpenAPI spec as JSON (converts `public/openapi.yaml` if present, otherwise returns FastAPI's generated schema)
+- GET /.well-known/ai-plugin.json — serves the AI plugin manifest
 
-1. Create a virtual environment (recommended) and install dependencies:
+Quickstart (recommended)
 
-```sh
+1. Create and activate the virtual environment, install dependencies:
+
+```bash
 python -m venv .venv
-source .venv/bin/activate   # on Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+source .venv/bin/activate
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
-2. Run the app:
+2. Start the app with uvicorn:
 
-```sh
-python app.py
+```bash
+.venv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 5000 --reload
 ```
 
-The app listens on http://localhost:5000 by default.
+Or after activating the venv:
 
-3. Example requests:
-
-```sh
-curl http://localhost:5000/datetime/current
-curl http://localhost:5000/date/current
+```bash
+uvicorn app:app --host 0.0.0.0 --port 5000 --reload
 ```
 
-## OpenAPI & AI Plugin Manifest
+Useful URLs (local)
 
-The app serves the OpenAPI spec and plugin manifest from `public/`:
+- Interactive Swagger UI: http://localhost:5000/docs
+- ReDoc: http://localhost:5000/redoc
+- OpenAPI JSON: http://localhost:5000/openapi.json
+- AI Plugin Manifest: http://localhost:5000/.well-known/ai-plugin.json
+- Example endpoint: http://localhost:5000/datetime/current
 
-- OpenAPI: [/openapi.yaml] served from [public/openapi.yaml](public/openapi.yaml)
-- AI Plugin Manifest: [/.well-known/ai-plugin.json] served from [public/ai-plugin.json](public/ai-plugin.json)
+Testing
 
-If you run the module directly (python app.py) it will attempt to create `public/openapi.yaml` and `public/ai-plugin.json` automatically.
+Run the test suite using the venv Python so the venv-installed test deps are used:
 
-## Testing
-
-Run the test suite with pytest:
-
-```sh
-pytest -q
+```bash
+.venv/bin/python -m pytest -q
 ```
 
-Tests exercise the endpoints and the static file serving (see [tests/test_app.py](tests/test_app.py)).
+Files of interest
 
-## Files of interest
+- `app.py` — FastAPI application and routes
+- `public/openapi.yaml` — OpenAPI YAML used by the plugin manifest
+- `public/ai-plugin.json` — AI plugin manifest
+- `requirements.txt` — runtime and test dependencies
+- `tests/test_app.py` — tests for endpoints and static file serving
 
-- Application entrypoint: [app.py](app.py) — contains the Flask `app` and endpoints including [`app.get_current_datetime`](app.py) and [`app.get_current_date`](app.py).
-- OpenAPI spec: [public/openapi.yaml](public/openapi.yaml)
-- AI plugin manifest: [public/ai-plugin.json](public/ai-plugin.json)
-- Requirements: [requirements.txt](requirements.txt)
-- Tests: [tests/test_app.py](tests/test_app.py)
+License
 
-## License
-
-MIT — see [LICENSE](LICENSE)
+MIT — see `LICENSE`
 ```

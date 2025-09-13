@@ -1,44 +1,6 @@
 
 openapi: 3.1.0
 info:
-  title: Current Date & Time Tool
-  version: "1.0.0"
-  description: API for retrieving the current date and time, or just the date, in UTC.
-servers:
-  - url: http://localhost:5000
-paths:
-  /datetime/current:
-    get:
-      summary: Get the current UTC date and time (ISO 8601)
-      operationId: getCurrentDatetime
-      description: "Retrieves the current date and time in UTC, formatted as ISO 8601 (e.g., 2023-10-27T10:00:00.123456+00:00)."
-      responses:
-        '200':
-          description: Successful response with the current UTC date and time.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  current_datetime_utc:
-                    type: string
-                    format: date-time
-                    description: Current UTC date and time in ISO 8601 format.
-  /date/current:
-    get:
-      summary: Get the current UTC date (YYYY-MM-DD format)
-      operationId: getCurrentDate
-      description: "Retrieves the current UTC date in 'YYYY-MM-DD' format, specifically for use with APIs (like NewsAPI) that require a date-only string."
-      responses:
-        '200':
-          description: Successful response with the current UTC date.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  current_date_utc:
-                    type: string
-                    format: date # OpenAPI standard format for YYYY-MM-DD
-                    pattern: "^\d{4}-\d{2}-\d{2}$" # Explicit pattern for YYYY-MM-DD
-                    description: Current UTC date in YYYY-MM-DD format (e.g., 2023-10-27).
+  title: Test API
+  version: '1.0'
+paths: {}

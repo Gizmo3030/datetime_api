@@ -1,18 +1,1 @@
-
-{
-  "schema_version": "v1",
-  "name_for_model": "current_time_and_date_tool",
-  "name_for_human": "Current Time & Date",
-  "description_for_model": "Provides the current date and time in UTC. Use `getCurrentDatetime` for the full date and time (ISO 8601) or `getCurrentDate` for just the date in 'YYYY-MM-DD' format. Use this tool whenever the user asks for the current date, current time, 'now', or similar temporal queries, especially when a specific date format is needed for other APIs (e.g., News API).",
-  "description_for_human": "A tool to get the current date and time (UTC) in various formats.",
-  "auth": {
-    "type": "none"
-  },
-  "api": {
-    "type": "openapi",
-    "url": "http://localhost:5000/openapi.yaml"
-  },
-  "logo_url": "http://localhost:5000/logo.png",
-  "contact_email": "support@example.com",
-  "legal_info": "https://www.example.com/legal"
-}
+{"name_for_model": "test"}
